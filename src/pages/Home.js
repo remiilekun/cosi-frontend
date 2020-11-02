@@ -1,11 +1,12 @@
 import React from 'react';
 import { PageTitle } from 'components/atoms';
 import { PageWrapper } from 'components/molecules';
-import { FormErrorMessage, FormLabel, FormControl, Input, Button } from '@chakra-ui/core';
+import { Button } from '@chakra-ui/core';
+import queryString from 'query-string';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { objectToQueryString } from 'lib/utils';
+import { FormInput } from 'components/molecules';
 
 const schema = yup.object().shape({
   flightNumber: yup
@@ -23,7 +24,7 @@ const Home = ({ history }) => {
   const onSubmit = (data) => {
     history.push({
       pathname: '/check-in',
-      search: `?${objectToQueryString(data)}`,
+      search: `?${queryString.stringify(data)}`,
     });
   };
 
@@ -32,17 +33,15 @@ const Home = ({ history }) => {
       <PageTitle>Welcome to your web check-in</PageTitle>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={errors.flightNumber} mb="1rem">
-          <FormLabel htmlFor="flightNumber">Flight number</FormLabel>
-          <Input name="flightNumber" placeholder="09872641" ref={register} />
-          <FormErrorMessage>{errors.flightNumber && errors.flightNumber.message}</FormErrorMessage>
-        </FormControl>
+        <FormInput
+          name="flightNumber"
+          error={errors.flightNumber}
+          register={register}
+          label="Flight number"
+          placeholder="09872641"
+        />
 
-        <FormControl isInvalid={errors.lastName}>
-          <FormLabel htmlFor="lastName">Last name</FormLabel>
-          <Input name="lastName" placeholder="Doe" ref={register} />
-          <FormErrorMessage>{errors.lastName && errors.lastName.message}</FormErrorMessage>
-        </FormControl>
+        <FormInput name="lastName" error={errors.lastName} register={register} label="Last name" placeholder="Doe" />
 
         <Button mt={4} variantColor="teal" type="submit">
           Submit
