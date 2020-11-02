@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 const Home = lazy(() => import('pages/Home'));
 const CheckIn = lazy(() => import('pages/CheckIn'));
+const CheckInConfirmed = lazy(() => import('pages/CheckInConfirmed'));
 
 const Scroll = ({ children, location }) => {
   useEffect(() => {
@@ -28,6 +29,7 @@ const RouterComponent = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/check-in" component={CheckIn} />
+            <Route path="/check-in-confirmed" component={CheckInConfirmed} />
           </Switch>
         </ScrollToTop>
       </Router>
