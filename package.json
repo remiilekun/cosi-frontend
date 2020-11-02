@@ -6,14 +6,18 @@
     "@chakra-ui/core": "^0.8.0",
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
+    "@hookform/resolvers": "^1.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "emotion-theming": "^10.0.27",
     "react": "16.14.0",
     "react-dom": "16.14.0",
+    "react-hook-form": "^6.10.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.4",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "start": "react-scripts start",
