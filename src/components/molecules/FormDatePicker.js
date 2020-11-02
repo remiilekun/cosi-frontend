@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
-import { FormErrorMessage, FormLabel, FormControl, Input, Box } from '@chakra-ui/core';
+import { FormErrorMessage, FormLabel, FormControl, Input } from '@chakra-ui/core';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from '@emotion/styled';

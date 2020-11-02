@@ -4,7 +4,7 @@ import React from 'react';
 const Wrapper = styled.div`
   background-color: #f5f5f5;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 2rem 1.5rem;
 
   ${({ theme }) => theme.mq.md`
   padding: 4rem 2rem;

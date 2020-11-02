@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { PageTitle } from 'components/atoms';
 import { PageWrapper } from 'components/molecules';
-import { Button, Checkbox, FormControl, FormErrorMessage } from '@chakra-ui/core';
+import { Button, Checkbox, FormControl, FormErrorMessage, Text } from '@chakra-ui/core';
 import queryString from 'query-string';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { countries } from 'data/countries';
 import { FormInput, FormSelect, FormDatePicker } from 'components/molecules';
 import { checkInSchema } from 'schemas/checkin';
+import { useMutation } from 'react-query';
+import api from 'services/api';
 
 const CheckIn = ({ location, history }) => {
   const [urlData, setUrlData] = useState({});
@@ -17,6 +19,14 @@ const CheckIn = ({ location, history }) => {
   });
   const nationality = watch('nationality');
 
+  const [onCheckIn, { isLoading, error }] = useMutation(api.checkIn, {
+    onSuccess: () => {
+      history.push({
+        pathname: '/check-in-confirmed',
+      });
+    },
+  });
+
   useEffect(() => {
     const parsed = queryString.parse(location.search);
     setUrlData(parsed);
@@ -24,7 +34,7 @@ const CheckIn = ({ location, history }) => {
     if (!parsed.flightNumber || !parsed.lastName) {
       history.push('/');
     }
-  }, []);
+  }, [history, location.search]);
 
   const renderOptionsByNationality = () => {
     switch (nationality) {
@@ -50,7 +60,13 @@ const CheckIn = ({ location, history }) => {
       case 'belgium':
         return (
           <>
-            <FormDatePicker name="birthDate" error={errors.birthDate} control={control} label="Birth date" />
+            <FormDatePicker
+              controllerProps={{ defaultValue: new Date() }}
+              name="birthDate"
+              error={errors.birthDate}
+              control={control}
+              label="Birth date"
+            />
 
             <FormInput
               name="residentialCountry"
@@ -78,7 +94,13 @@ const CheckIn = ({ location, history }) => {
       case 'france':
         return (
           <>
-            <FormDatePicker name="birthDate" error={errors.birthDate} control={control} label="Birth date" />
+            <FormDatePicker
+              controllerProps={{ defaultValue: new Date() }}
+              name="birthDate"
+              error={errors.birthDate}
+              control={control}
+              label="Birth date"
+            />
 
             <FormInput name="birthPlace" error={errors.birthPlace} register={register} label="Birth place" />
 
@@ -102,6 +124,7 @@ const CheckIn = ({ location, history }) => {
         return (
           <>
             <FormDatePicker
+              controllerProps={{ defaultValue: new Date() }}
               name="passportIssueDate"
               error={errors.passportIssueDate}
               control={control}
@@ -141,15 +164,11 @@ const CheckIn = ({ location, history }) => {
     }
   };
 
-  const onSubmit = (data) => {
-    console.log({ data });
-
+  const onSubmit = async (form) => {
     if (!showConfirm) {
       setShowConfirm(true);
     } else {
-      history.push({
-        pathname: '/check-in-confirmed',
-      });
+      onCheckIn(form);
     }
   };
 
@@ -223,6 +242,7 @@ const CheckIn = ({ location, history }) => {
             <Controller
               control={control}
               name="termsAccepted"
+              defaultValue={false}
               render={({ onChange, value }) => (
                 <Checkbox isChecked={value} onChange={() => onChange(!value)}>
                   Accept Terms and Conditions
@@ -233,7 +253,9 @@ const CheckIn = ({ location, history }) => {
           </FormControl>
         )}
 
-        <Button mt={4} variantColor="teal" type="submit">
+        {error && <Text color="red.400">{error?.response?.data?.error || 'An error occured'}</Text>}
+
+        <Button mt={4} variantColor="teal" type="submit" isLoading={isLoading}>
           Continue
         </Button>
       </form>

@@ -1,13 +1,18 @@
 import axios from 'axios';
-import AppConfig from 'config/app.config';
 
 const create = () => {
   const api = axios.create({
-    baseURL: AppConfig.baseURL,
-    timeout: 2000,
+    baseURL: 'https://app.fakejson.com/q',
   });
 
-  return {};
+  return {
+    checkIn: (data) =>
+      api.post('/xXWFSwez', data, {
+        params: {
+          token: 'DHDIXKXq4ax9sPx_nTlbPQ',
+        },
+      }),
+  };
 };
 
 const api = create();
