@@ -6,7 +6,8 @@
   },
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jest/globals": true
   },
   "extends": ["eslint:recommended", "plugin:react/recommended", "prettier", "prettier/react"],
   "parser": "babel-eslint",
@@ -17,7 +18,7 @@
     "ecmaVersion": 9,
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "jest", "prettier"],
   "rules": {
     "react/prop-types": [
       "error",
