@@ -5,8 +5,14 @@ export const checkInSchema = yup.object().shape({
   lastName: yup.string().required('Last Name is required'),
   nationality: yup.string().required('Nationality is required'),
   email: yup.string().email('Invalid email address').required('Email address is required'),
-  phoneNumber: yup.string().required('Phone number is required'),
-  passportNumber: yup.string().required('Passport number is required'),
+  phoneNumber: yup
+    .string()
+    .matches(/^\+\d+$/, 'Invalid phone number')
+    .required('Phone number is required'),
+  passportNumber: yup
+    .string()
+    .matches(/^\d+$/, 'Passport number should contain only numbers')
+    .required('Passport number is required'),
   termsAccepted: yup.bool().oneOf([true], 'Kindly accept terms and conditions'),
   residentialCountry: yup.string().when('nationality', {
     is: (val) => ['austria', 'belgium', 'france'].includes(val),

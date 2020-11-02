@@ -5,20 +5,12 @@ import { Button } from '@chakra-ui/core';
 import queryString from 'query-string';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { basicSchema } from 'schemas/basic';
 import { FormInput } from 'components/molecules';
-
-const schema = yup.object().shape({
-  flightNumber: yup
-    .string()
-    .matches(/^\d+$/, 'Flight number should contain only numbers')
-    .required('Flight number is required'),
-  lastName: yup.string().required('Last Name is required'),
-});
 
 const Home = ({ history }) => {
   const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(basicSchema),
   });
 
   const onSubmit = (data) => {
