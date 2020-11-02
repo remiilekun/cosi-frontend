@@ -4,6 +4,7 @@ import { Loader } from 'components/atoms';
 import PropTypes from 'prop-types';
 
 const Home = lazy(() => import('pages/Home'));
+const CheckIn = lazy(() => import('pages/CheckIn'));
 
 const Scroll = ({ children, location }) => {
   useEffect(() => {
@@ -26,6 +27,7 @@ const RouterComponent = () => {
         <ScrollToTop>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/check-in" component={CheckIn} />
           </Switch>
         </ScrollToTop>
       </Router>
