@@ -8,6 +8,8 @@ export const checkInSchema = yup.object().shape({
   phoneNumber: yup.string().required('Phone number is required'),
   passportNumber: yup.string().required('Passport number is required'),
 
+  termsAccepted: yup.bool().oneOf([true], 'Kindly accept terms and conditions'),
+
   residentialCountry: yup.string().when('nationality', {
     is: (val) => ['austria', 'belgium', 'france'].includes(val),
     then: yup.string().required('Residential country is required'),

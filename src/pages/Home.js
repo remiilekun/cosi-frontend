@@ -44,7 +44,7 @@ const Home = ({ history }) => {
         <FormInput name="lastName" error={errors.lastName} register={register} label="Last name" placeholder="Doe" />
 
         <Button mt={4} variantColor="teal" type="submit">
-          Submit
+          Search flight
         </Button>
       </form>
     </PageWrapper>

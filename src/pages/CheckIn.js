@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { PageTitle } from 'components/atoms';
 import { PageWrapper } from 'components/molecules';
-import { Button } from '@chakra-ui/core';
+import { Button, Checkbox, FormControl, FormErrorMessage } from '@chakra-ui/core';
 import queryString from 'query-string';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { countries } from 'data/countries';
 import { FormInput, FormSelect, FormDatePicker } from 'components/molecules';
@@ -11,6 +11,7 @@ import { checkInSchema } from 'schemas/checkin';
 
 const CheckIn = ({ location, history }) => {
   const [urlData, setUrlData] = useState({});
+  const [showConfirm, setShowConfirm] = useState(false);
   const { register, handleSubmit, errors, control, watch } = useForm({
     resolver: yupResolver(checkInSchema),
   });
@@ -142,15 +143,19 @@ const CheckIn = ({ location, history }) => {
 
   const onSubmit = (data) => {
     console.log({ data });
-    // history.push({
-    //   pathname: '/check-in',
-    //   search: `?${objectToQueryString(data)}`,
-    // });
+
+    if (!showConfirm) {
+      setShowConfirm(true);
+    } else {
+      history.push({
+        pathname: '/check-in-confirmed',
+      });
+    }
   };
 
   return (
     <PageWrapper>
-      <PageTitle>Hi, Mr {urlData?.lastName}!</PageTitle>
+      <PageTitle>{showConfirm ? 'Please review your information' : `Hi, Mr ${urlData?.lastName}!`}</PageTitle>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInput
@@ -213,8 +218,23 @@ const CheckIn = ({ location, history }) => {
 
         {renderOptionsByNationality()}
 
+        {!showConfirm && (
+          <FormControl isInvalid={errors.termsAccepted}>
+            <Controller
+              control={control}
+              name="termsAccepted"
+              render={({ onChange, value }) => (
+                <Checkbox isChecked={value} onChange={() => onChange(!value)}>
+                  Accept Terms and Conditions
+                </Checkbox>
+              )}
+            />
+            <FormErrorMessage>{errors.termsAccepted && errors.termsAccepted.message}</FormErrorMessage>
+          </FormControl>
+        )}
+
         <Button mt={4} variantColor="teal" type="submit">
-          Submit
+          Continue
         </Button>
       </form>
     </PageWrapper>
