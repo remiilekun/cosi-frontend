@@ -23,12 +23,12 @@ describe('Home page', () => {
     const flightNumber = container.querySelector("input[name='flightNumber']");
     const lastName = container.querySelector("input[name='lastName']");
 
-    fireEvent.input(flightNumber, {
+    fireEvent.change(flightNumber, {
       target: {
         value: mockFlightNumber,
       },
     });
-    fireEvent.input(lastName, {
+    fireEvent.change(lastName, {
       target: {
         value: mockLastName,
       },
@@ -47,12 +47,12 @@ describe('Home page', () => {
     const lastName = container.querySelector("input[name='lastName']");
     const submitButton = container.querySelector("button[type='submit']");
 
-    fireEvent.input(flightNumber, {
+    fireEvent.change(flightNumber, {
       target: {
         value: `${mockFlightNumber}re`,
       },
     });
-    fireEvent.input(lastName, {
+    fireEvent.change(lastName, {
       target: {
         value: mockLastName,
       },
@@ -80,12 +80,12 @@ describe('Home page', () => {
     const lastName = container.querySelector("input[name='lastName']");
     const submitButton = container.querySelector("button[type='submit']");
 
-    fireEvent.input(flightNumber, {
+    fireEvent.change(flightNumber, {
       target: {
         value: mockFlightNumber,
       },
     });
-    fireEvent.input(lastName, {
+    fireEvent.change(lastName, {
       target: {
         value: mockLastName,
       },

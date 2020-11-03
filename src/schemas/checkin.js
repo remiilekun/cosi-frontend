@@ -46,4 +46,8 @@ export const checkInSchema = yup.object().shape({
     is: 'greece',
     then: yup.date().required('Passport issue date is required'),
   }),
+  passportExpiryDate: yup.date().when('nationality', {
+    is: 'greece',
+    then: yup.date().required('Passport expiry date is required'),
+  }),
 });

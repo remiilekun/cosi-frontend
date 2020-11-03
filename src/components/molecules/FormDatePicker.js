@@ -21,7 +21,7 @@ export const FormDatePicker = ({ label, error, name, control, controllerProps, .
         control={control}
         render={({ onChange, value }) => (
           <PickerWrapper>
-            <Input as={DatePicker} selected={value} onChange={(date) => onChange(date)} />
+            <DatePicker name={name} customInput={<Input />} selected={value} onChange={(date) => onChange(date)} />
           </PickerWrapper>
         )}
         name={name}
@@ -34,7 +34,7 @@ export const FormDatePicker = ({ label, error, name, control, controllerProps, .
 };
 
 FormDatePicker.propTypes = {
-  control: PropTypes.func.isRequired,
+  control: PropTypes.object.isRequired,
   error: PropTypes.any,
   controllerProps: PropTypes.object,
   label: PropTypes.string.isRequired,

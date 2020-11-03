@@ -144,6 +144,14 @@ const CheckIn = ({ location, history }) => {
               register={register}
               label="Passport issue city"
             />
+
+            <FormDatePicker
+              controllerProps={{ defaultValue: new Date() }}
+              name="passportExpiryDate"
+              error={errors.passportExpiryDate}
+              control={control}
+              label="Passport expiry date"
+            />
           </>
         );
 
@@ -244,7 +252,7 @@ const CheckIn = ({ location, history }) => {
               name="termsAccepted"
               defaultValue={false}
               render={({ onChange, value }) => (
-                <Checkbox isChecked={value} onChange={() => onChange(!value)}>
+                <Checkbox isChecked={value} name="termsAccepted" onChange={() => onChange(!value)}>
                   Accept Terms and Conditions
                 </Checkbox>
               )}
